@@ -37,7 +37,7 @@ export default function createNextJsProjectBuilder(
       components: [
         reactCommonDeps(),
         esmodule({
-          fileType: 'jsx',
+          fileType: 'tsx',
         }),
         styleImport(),
         containerClass(),
@@ -62,7 +62,7 @@ export default function createNextJsProjectBuilder(
       pages: [
         reactCommonDeps(),
         esmodule({
-          fileType: 'jsx',
+          fileType: 'tsx',
         }),
         styleImport(),
         containerClass(),
@@ -85,9 +85,9 @@ export default function createNextJsProjectBuilder(
         }),
         css(),
       ],
-      constants: [constants()],
-      utils: [esmodule(), utils('react')],
-      i18n: [i18n()],
+      // constants: [constants()],
+      // utils: [esmodule(), utils('react')],
+      // i18n: [i18n()],
       // globalStyle: [icejs3.plugins.globalStyle()],
       packageJSON: [nextjs.plugins.packageJSON()],
       // buildConfig: [icejs3.plugins.buildConfig()],

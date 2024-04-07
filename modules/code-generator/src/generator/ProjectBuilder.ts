@@ -141,6 +141,7 @@ export class ProjectBuilder implements IProjectBuilder {
       },
     });
     console.log('ProjectBuilder-136-builders: ', builders)
+    console.log('ProjectBuilder-144-parseResult:', parseResult)
     // Generator Code module
     // components
     // pages

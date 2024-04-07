@@ -9,6 +9,7 @@ const nextjsTemplate: IProjectTemplate = {
     },
     pages: {
       path: ['src', 'app'],
+      fileName: 'page',
     },
     router: {
       path: ['src', 'lib'],

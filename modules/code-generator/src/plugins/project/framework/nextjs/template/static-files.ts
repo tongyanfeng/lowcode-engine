@@ -70,6 +70,8 @@ import app_error from './files/src/app/error.tsx';
 
 import app_m_page from './files/src/app/manage/page.tsx';
 
+import public_next_svg from './files/public/next.svg';
+import public_vercel_svg from './files/public/vercel.svg';
 
 export function generateStaticFiles(root = createResultDir('.')): ResultDir {
   runFileGenerator(root, tsconfig);
@@ -132,6 +134,9 @@ export function generateStaticFiles(root = createResultDir('.')): ResultDir {
   runFileGenerator(root, app_layout);
   runFileGenerator(root, app_globals_css);
   runFileGenerator(root, app_error);
+
+  runFileGenerator(root, public_next_svg);
+  runFileGenerator(root, public_vercel_svg);
 
   return root;
 }
