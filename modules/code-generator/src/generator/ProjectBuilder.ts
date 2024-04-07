@@ -129,9 +129,9 @@ export class ProjectBuilder implements IProjectBuilder {
     // Collect Deps
     // Parse JSExpression
     const parseResult: IParseResult = schemaParser.parse(schema);
-
+    console.log('ProjectBuilder-133-parseResult: ', parseResult)
     const projectRoot = await this.template.generateTemplate(parseResult);
-
+    console.log('ProjectBuilder-136-projectRoot: ', projectRoot)
     let buildResult: IModuleInfo[] = [];
 
     const builders = this.createModuleBuilders({
@@ -140,6 +140,7 @@ export class ProjectBuilder implements IProjectBuilder {
         template: this.template,
       },
     });
+    console.log('ProjectBuilder-136-builders: ', builders)
     // Generator Code module
     // components
     // pages

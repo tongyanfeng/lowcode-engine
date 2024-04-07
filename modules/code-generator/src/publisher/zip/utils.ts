@@ -41,6 +41,8 @@ export const generateProjectZip = async (project: ResultDir): Promise<ZipBuffer>
   let zip = new JSZip();
   zip = writeFolderToZip(project, zip, true);
   const zipType = isNodeProcess() ? 'nodebuffer' : 'blob';
+  console.log('44 zip utils zipType: ', zipType);
+  
   return zip.generateAsync({ type: zipType });
 };
 

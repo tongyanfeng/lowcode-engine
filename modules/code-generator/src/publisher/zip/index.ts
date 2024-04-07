@@ -42,8 +42,11 @@ export const createZipPublisher: PublisherFactory<ZipFactoryParams, ZipPublisher
     const zipName = options.projectSlug || params.projectSlug || projectToPublish.name;
 
     try {
+      console.log('45 lowcode projectToPublish: ', projectToPublish);
       const zipContent = await generateProjectZip(projectToPublish);
-
+      console.log('46 lowcode zipContent: ', zipContent);
+      console.log('47 lowcode isNodeProcess: ', isNodeProcess());
+      
       if (isNodeProcess()) {
         // If not output path is provided on the node side, zip is not written to disk
         const projectOutputPath = options.outputPath || outputPath;

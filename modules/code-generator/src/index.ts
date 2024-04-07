@@ -11,6 +11,7 @@ import { createZipPublisher } from './publisher/zip';
 import createIceJsProjectBuilder, { plugins as icejsPlugins } from './solutions/icejs';
 import createIceJs3ProjectBuilder, { plugins as icejs3Plugins } from './solutions/icejs3';
 import createRaxAppProjectBuilder, { plugins as raxPlugins } from './solutions/rax-app';
+import createNextJsProjectBuilder, { plugins as nextjsPlugins } from './solutions/nextjs';
 
 // 引入说明
 import { REACT_CHUNK_NAME } from './plugins/component/react/const';
@@ -36,6 +37,7 @@ import * as CONSTANTS from './const';
 import icejs from './plugins/project/framework/icejs';
 import icejs3 from './plugins/project/framework/icejs3';
 import rax from './plugins/project/framework/rax';
+import nextjs from './plugins/project/framework/nextjs';
 
 export default {
   createProjectBuilder,
@@ -44,11 +46,13 @@ export default {
     icejs: createIceJsProjectBuilder,
     icejs3: createIceJs3ProjectBuilder,
     rax: createRaxAppProjectBuilder,
+    nextjs: createNextJsProjectBuilder
   },
   solutionParts: {
     icejs,
     icejs3,
     rax,
+    nextjs
   },
   publishers: {
     disk: createDiskPublisher,
@@ -82,6 +86,9 @@ export default {
     },
     rax: {
       ...raxPlugins,
+    },
+    nextjs: {
+      ...nextjsPlugins
     },
 
     /**

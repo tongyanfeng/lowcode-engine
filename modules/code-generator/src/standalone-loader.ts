@@ -8,7 +8,7 @@ declare const __PACKAGE_VERSION__: string;
 
 const packageVersion = __PACKAGE_VERSION__ || 'latest';
 
-export const DEFAULT_WORKER_JS = `https://cdn.jsdelivr.net/npm/@alilc/lowcode-code-generator@${packageVersion}/dist/standalone-worker.min.js`;
+export const DEFAULT_WORKER_JS = `http://localhost:5556/lowcode/standalone-worker.min.js`;
 
 export const DEFAULT_TIMEOUT_IN_MS = 60 * 1000;
 
@@ -25,7 +25,7 @@ export async function init({
 export type Result = ResultDir | FlattenFile[];
 
 export async function generateCode(options: {
-  solution: 'icejs' | 'rax';
+  solution: 'icejs' | 'rax' | 'nextjs';
   schema: IPublicTypeProjectSchema;
   flattenResult?: boolean;
   workerJsUrl?: string;
@@ -130,4 +130,77 @@ function print(msg: string, ...args: unknown[]) {
 function printErr(msg: string, ...args: unknown[]) {
   // eslint-disable-next-line no-console
   console.debug(`[code-generator/loader]: %c${msg}`, 'color:red', ...args);
+}
+
+export async function generateZip(options: {
+  outputPath: '';
+  project: any;
+  workerJsUrl?: string;
+  timeoutInMs?: number;
+}): Promise<Result> {
+  if (typeof self !== 'object') {
+    throw new Error('self is not defined');
+  }
+
+  if (typeof Worker !== 'function') {
+    throw new Error('Worker is not supported');
+  }
+
+  const workerJsUrl = options.workerJsUrl || DEFAULT_WORKER_JS;
+
+  const workerJs = await loadWorkerJs(workerJsUrl);
+
+  const worker = new Worker(workerJs.url, {
+    type: 'classic',
+    credentials: 'omit',
+  });
+
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error('timeout'));
+      worker.terminate();
+    }, options.timeoutInMs || DEFAULT_TIMEOUT_IN_MS);
+
+    worker.onmessage = (event: any) => {
+      const msg = event.data;
+      switch (msg.type) {
+        case 'ready':
+          print('worker is ready.');
+          break;
+
+        case 'zip:begin':
+          print('worker is running...');
+          break;
+        case 'zip:end':
+          print('worker is done.');
+          console.log('zip done:', msg);
+          resolve(msg.result);
+          clearTimeout(timer);
+          worker.terminate();
+          break;
+        case 'zip:error':
+          printErr(`worker error: ${msg.errorMsg}`);
+          clearTimeout(timer);
+          reject(new Error(msg.errorMsg || 'unknown error'));
+          worker.terminate();
+          break;
+        default:
+          print('got unknown msg: %o', msg);
+          break;
+      }
+    };
+
+    worker.onerror = (err: any) => {
+      printErr('worker error: %o', err);
+      clearTimeout(timer);
+      reject(err);
+      worker.terminate();
+    };
+
+    worker.postMessage({
+      type: 'zip',
+      outputPath: options.outputPath,
+      project: options.project
+    });
+  });
 }
