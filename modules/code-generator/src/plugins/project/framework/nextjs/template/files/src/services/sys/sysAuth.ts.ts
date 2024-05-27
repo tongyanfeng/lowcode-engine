@@ -42,5 +42,5 @@ export async function resConfig(data: any) {
     `,
     );
 
-    return [['src', 'services', 'app', 'sys'], file];
+    return [['src', 'services', 'sys'], file];
 }

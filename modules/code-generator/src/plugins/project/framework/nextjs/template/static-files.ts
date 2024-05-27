@@ -60,6 +60,7 @@ import lay_BasicLayout from './files/src/layout/BasicLayout.tsx';
 import lay_utils from './files/src/layout/utils.ts';
 
 
+import components_common_AuthComponent from './files/src/compoents/common/AuthComponent.tsx';
 
 import app_page from './files/src/app/page.tsx';
 import app_not_found from './files/src/app/not-found.tsx';
@@ -69,9 +70,12 @@ import app_globals_css from './files/src/app/globals.css';
 import app_error from './files/src/app/error.tsx';
 
 import app_m_page from './files/src/app/manage/page.tsx';
+import app_sys_sysRole_page from './files/src/app/sys/sysRole/page.tsx';
 
 import public_next_svg from './files/public/next.svg';
 import public_vercel_svg from './files/public/vercel.svg';
+import public_user_empty_svg from './files/public/user-empty.svg';
+import public_menu_logo_svg from './files/public/menu_logo.svg';
 
 export function generateStaticFiles(root = createResultDir('.')): ResultDir {
   runFileGenerator(root, tsconfig);
@@ -128,6 +132,8 @@ export function generateStaticFiles(root = createResultDir('.')): ResultDir {
   runFileGenerator(root, lay_BasicLayout);
   runFileGenerator(root, lay_utils);
 
+  runFileGenerator(root, components_common_AuthComponent);
+
   runFileGenerator(root, app_page);
   runFileGenerator(root, app_not_found);
   runFileGenerator(root, app_loading);
@@ -135,8 +141,12 @@ export function generateStaticFiles(root = createResultDir('.')): ResultDir {
   runFileGenerator(root, app_globals_css);
   runFileGenerator(root, app_error);
 
+  runFileGenerator(root, app_sys_sysRole_page);
+
   runFileGenerator(root, public_next_svg);
   runFileGenerator(root, public_vercel_svg);
+  runFileGenerator(root, public_user_empty_svg);
+  runFileGenerator(root, public_menu_logo_svg);
 
   return root;
 }

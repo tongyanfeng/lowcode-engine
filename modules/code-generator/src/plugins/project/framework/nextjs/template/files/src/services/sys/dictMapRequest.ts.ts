@@ -25,5 +25,5 @@ export async function dictItemList(params:any) {
     `,
     );
 
-    return [['src', 'services', 'app', 'sys'], file];
+    return [['src', 'services', 'sys'], file];
 }

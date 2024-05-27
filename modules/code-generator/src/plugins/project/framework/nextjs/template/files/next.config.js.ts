@@ -10,9 +10,9 @@ export default function getFile(): [string[], ResultFile] {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: process.env.BUILD_OUTPUT,
-  distDir: "web",
-  assetPrefix: "/web",
-  basePath: "/web",
+  distDir: "esscweb",
+  assetPrefix: "/esscweb",
+  basePath: "/esscweb",
   trailingSlash: true,
   typescript: {
     // 禁用类型检查
@@ -20,7 +20,7 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig;
+module.exports = nextConfig;      
 `
     },
   ];

@@ -26,8 +26,8 @@ app.prepare()
     const server = express()
     //写在这里可以获取环境变量
     const devProxy = {
-      '/counter': {
-        target: 'http://localhost:8080',
+      '/essc-cs': {
+        target: 'http://localhost:23627',
         changeOrigin: true,
         pathRewrite: {
           '^': '',
@@ -36,6 +36,17 @@ app.prepare()
           proxyReq.removeHeader('origin')
         }
       }
+      // [process.env.NEXT_PUBLIC_BASE_API]: {
+      //   target: 'http://xxxx', // 外网测试环境
+      //   changeOrigin: true,
+      //   pathRewrite: { '^/api': '' },
+      // },
+      // [process.env.NEXT_PUBLIC_WEBSOCKET_PUSH_API]: {
+      //   target: 'ws://xxxx', // 外网ws测试环境
+      //   changeOrigin: true,
+      //   ws: true,
+      //   pathRewrite: { '^/wsapi': '' },
+      // },
     }
     if (dev && devProxy) {
       Object.keys(devProxy).forEach((context) => {
@@ -51,12 +62,14 @@ app.prepare()
       if (err) {
         throw err
       }
+      console.log(\`http://0.0.0.0:\${port}\`)
+      console.log(\`> Ready on http://localhost:\${port}\`)
     })
   })
   .catch(err => {
     console.log('An error occurred, unable to start the server')
     console.log(err)
-  })  
+  })
     `,
     },
   ];

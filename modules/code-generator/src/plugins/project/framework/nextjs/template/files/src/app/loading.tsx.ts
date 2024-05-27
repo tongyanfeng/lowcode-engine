@@ -6,11 +6,15 @@ export default function getFile(): [string[], ResultFile] {
         'loading',
         'tsx',
         `
-export default () => {
-    return (
-      <div>loading</div>
-    );
-  };
+"use client";
+import React from 'react';
+import { Spin } from 'antd';
+
+const Loading: React.FC = () => (
+  <Spin />
+);
+
+export default Loading;
     `,
     );
 
