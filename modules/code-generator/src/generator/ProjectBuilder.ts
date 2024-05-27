@@ -140,8 +140,8 @@ export class ProjectBuilder implements IProjectBuilder {
         template: this.template,
       },
     });
-    console.log('ProjectBuilder-136-builders: ', builders)
-    console.log('ProjectBuilder-144-parseResult:', parseResult)
+    console.log(JSON.stringify(builders))
+    console.log('ProjectBuilder-144-parseResult:', JSON.stringify(parseResult))
     // Generator Code module
     // components
     // pages
@@ -149,16 +149,25 @@ export class ProjectBuilder implements IProjectBuilder {
       parseResult.containers.map(async (containerInfo) => {
         let builder: IModuleBuilder;
         let path: string[];
+        console.log('ProjectBuilder-152-containerInfo:', JSON.stringify(containerInfo))
+        console.log('ProjectBuilder-152-path:', JSON.stringify(this.template.slots.pages.path))
+        
         if (containerInfo.containerType === 'Page') {
           builder = builders.pages;
           path = this.template.slots.pages.path;
         } else {
           builder = builders.components;
-          path = this.template.slots.components.path;
+          path = [] // this.template.slots.components.path;
         }
-
-        const { files } = await builder.generateModule(containerInfo);
-
+        console.log('ProjectBuilder-162-path:', JSON.stringify(this.template.slots.pages.path))
+        console.log('ProjectBuilder-165-builder:', JSON.stringify(builders))
+        let files:any;
+        try {
+          let data = await builder.generateModule(containerInfo);
+          files = data.files;
+        } catch (e) {
+          console.log(69, e);
+        }
         return {
           moduleName: containerInfo.moduleName,
           path,
@@ -166,16 +175,17 @@ export class ProjectBuilder implements IProjectBuilder {
         };
       }),
     );
+    console.log('ProjectBuilder-170-containerBuildResult:', JSON.stringify(containerBuildResult))
     buildResult = buildResult.concat(containerBuildResult);
+    console.log('ProjectBuilder-180-buildResult:', JSON.stringify(buildResult))
 
     // router
     if (parseResult.globalRouter && builders.router) {
       const { files } = await builders.router.generateModule(parseResult.globalRouter);
-
       buildResult.push({
         path: this.template.slots.router.path,
         files,
-      });
+      }); 
     }
 
     // entry
@@ -283,6 +293,7 @@ export class ProjectBuilder implements IProjectBuilder {
     // Post Process
     const isSingleComponent = parseResult?.project?.projectRemark?.isSingleComponent;
     // Combine Modules
+    console.log('ProjectBuilder-286-Combine Modules:', JSON.stringify(projectRoot))
     buildResult.forEach((moduleInfo) => {
       let targetDir = getDirFromRoot(projectRoot, moduleInfo.path);
       // if project only contain single component, skip creation of directory.

@@ -40,7 +40,7 @@ const pluginFactory: BuilderComponentPluginFactory<PluginConfig> = (config?) => 
       type: ChunkType.STRING,
       fileType: cfg.moduleFileType,
       name: COMMON_CHUNK_NAME.InternalDepsImport,
-      content: `import './index.${cfg.fileType}';`,
+      content: `import './page.${cfg.fileType}';`,
       linkAfter: [COMMON_CHUNK_NAME.ExternalDepsImport],
     });
 
