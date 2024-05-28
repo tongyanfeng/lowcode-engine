@@ -50,7 +50,7 @@ const BasicLayout = (props: any) => {
     useAppDispatch()(__setUserInfoState(initialState.userInfo));
     const pathname = usePathname();
     const [pathnameProp, setPathnameProp] = useState('/');
-    const [logoImg, setLogoImg] = useState("/web/menu_logo.png");
+    const [logoImg, setLogoImg] = useState("/esscweb/menu_logo.svg");
     const [collapsed, setCollapsed] = useState(true);
     const router = useRouter()
     const [settings, setSetting] = useState<Partial<ProSettings> | undefined>({
@@ -75,11 +75,11 @@ const BasicLayout = (props: any) => {
     }, [pathname])
     const handleMenuCollapse = (payload) => {
         setCollapsed(payload);
-        payload ? setLogoImg("/web/user-empty.svg") : setLogoImg("/web/menu_logo.png")
+        payload ? setLogoImg("/esscweb/user-empty.svg") : setLogoImg("/esscweb/menu_logo.svg")
     };
     return (
         <ProLayout
-            logo={() => <img src={logoImg} alt="logImg" />}
+            logo={() => <img src={logoImg} alt="logoImg" />}
             collapsed={collapsed}
             onCollapse={handleMenuCollapse}
             siderWidth={216}

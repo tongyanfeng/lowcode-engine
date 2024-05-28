@@ -11,5 +11,5 @@ export { sysRole, resTreeSelect, resConfig } from './sysAuth';
     `,
     );
 
-    return [['src', 'services', 'app', 'sys'], file];
+    return [['src', 'services', 'sys'], file];
 }

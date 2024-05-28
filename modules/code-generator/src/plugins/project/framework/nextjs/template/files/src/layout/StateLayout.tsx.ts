@@ -15,7 +15,7 @@ import { StoreProvider } from '@/lib/store/StoreProvider';
 import { Spin } from "antd";
 let watermark = undefined;
 if (typeof document !== "undefined") {
-    watermark = require('@webank/watermark');
+    // watermark = require('@webank/watermark');
 }
 
 export default ({ children }: any) => {
@@ -27,7 +27,7 @@ export default ({ children }: any) => {
         setStorage("userInfo", initialState.userInfo);
         // 支持配置的属性
         if (typeof document !== "undefined") {
-        watermark.init({
+        /** watermark.init({
             id: "",  // 指定水印计算的dom 默认当前的页面body
             waterMaskBoxId: "root", // 水印容器的id
             frontX: "", // 水印开始的横坐标 默认以body标签来计算
@@ -50,7 +50,7 @@ export default ({ children }: any) => {
             addTime: true, // 支持水印内容后面新增时间
             setIntervalTime: "60000", // 支持设置更新水印时间的等待时间
             dateFormatter: "YYYY-MM-DD hh:mm", // 支持设置水印时间的格式
-        });
+          });*/
         }
     }
     init();

@@ -51,7 +51,7 @@ const pluginFactory: BuilderComponentPluginFactory<NextJsPackageJsonPluginConfig
     const packageJson: INextJsPackageJSON = {
       name: cfg?.packageName || 'counter-demo',
       version: cfg?.packageVersion || '0.0.1',
-      description: '轻量级模板，使用 JavaScript，仅包含基础的 Layout。',
+      description: '轻量级模板，使用 TypeScript，仅包含基础的 Layout。',
       dependencies: {
         "@ant-design/cssinjs": "^1.18.2",
         "@ant-design/icons": "^5.2.6",
@@ -68,6 +68,7 @@ const pluginFactory: BuilderComponentPluginFactory<NextJsPackageJsonPluginConfig
         "react-dom": "^18",
         "react-redux": "^9.1.0",
         "redux-persist": "^6.0.0",
+        "sass": "^1.77.2",
 
         // 数据源相关的依赖:
         ...buildDataSourceDependencies(ir, cfg?.datasourceConfig),
