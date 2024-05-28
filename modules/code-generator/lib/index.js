@@ -1288,6 +1288,13 @@ var ProjectBuilder = class {
     console.log("ProjectBuilder-170-containerBuildResult:", JSON.stringify(containerBuildResult));
     buildResult = buildResult.concat(containerBuildResult);
     console.log("ProjectBuilder-180-buildResult:", JSON.stringify(buildResult));
+    if (parseResult.globalRouter && builders.router) {
+      const { files } = await builders.router.generateModule(parseResult.globalRouter);
+      buildResult.push({
+        path: this.template.slots.router.path,
+        files
+      });
+    }
     if (parseResult.project && builders.entry) {
       const { files } = await builders.entry.generateModule(parseResult.project);
       buildResult.push({
