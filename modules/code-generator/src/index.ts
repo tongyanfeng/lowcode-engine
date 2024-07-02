@@ -12,6 +12,7 @@ import createIceJsProjectBuilder, { plugins as icejsPlugins } from './solutions/
 import createIceJs3ProjectBuilder, { plugins as icejs3Plugins } from './solutions/icejs3';
 import createRaxAppProjectBuilder, { plugins as raxPlugins } from './solutions/rax-app';
 import createNextJsProjectBuilder, { plugins as nextjsPlugins } from './solutions/nextjs';
+import createNextJsPageProjectBuilder, { plugins as nextjsPagePlugins } from './solutions/nextjs-page';
 
 // 引入说明
 import { REACT_CHUNK_NAME } from './plugins/component/react/const';
@@ -38,6 +39,7 @@ import icejs from './plugins/project/framework/icejs';
 import icejs3 from './plugins/project/framework/icejs3';
 import rax from './plugins/project/framework/rax';
 import nextjs from './plugins/project/framework/nextjs';
+import nextjsPage from './plugins/project/framework/nextjs-page';
 
 export default {
   createProjectBuilder,
@@ -46,13 +48,15 @@ export default {
     icejs: createIceJsProjectBuilder,
     icejs3: createIceJs3ProjectBuilder,
     rax: createRaxAppProjectBuilder,
-    nextjs: createNextJsProjectBuilder
+    nextjs: createNextJsProjectBuilder,
+    nextjsPage: createNextJsPageProjectBuilder,
   },
   solutionParts: {
     icejs,
     icejs3,
     rax,
-    nextjs
+    nextjs,
+    nextjsPage,
   },
   publishers: {
     disk: createDiskPublisher,
@@ -88,7 +92,10 @@ export default {
       ...raxPlugins,
     },
     nextjs: {
-      ...nextjsPlugins
+      ...nextjsPlugins,
+    },
+    nextjsPage: {
+      ...nextjsPagePlugins,
     },
 
     /**

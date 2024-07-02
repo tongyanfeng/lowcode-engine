@@ -25,8 +25,9 @@ async function run(msg: { solution: string; schema: IPublicTypeProjectSchema; fl
     if (!solution) {
       throw new Error('solution is required');
     }
-
-    const createAppBuilder = CodeGen.solutions[solution as 'icejs' | 'rax' | 'nextjs'];
+    console.log(28, solution);
+    
+    const createAppBuilder = CodeGen.solutions[solution as 'icejs' | 'rax' | 'nextjs' | 'nextjsPage'];
     if (typeof createAppBuilder !== 'function') {
       throw new Error(`solution '${solution}' is invalid`);
     }

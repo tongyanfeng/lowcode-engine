@@ -1021,9 +1021,9 @@ var groupChunks = (chunks) => {
   return result;
 };
 var ChunkBuilder = class {
-  constructor(plugins5 = []) {
+  constructor(plugins6 = []) {
     __publicField(this, "plugins");
-    this.plugins = plugins5;
+    this.plugins = plugins6;
   }
   async run(ir, initialStructure = {
     ir,
@@ -1216,7 +1216,7 @@ var ProjectBuilder = class {
     }
     const {
       template,
-      plugins: plugins5,
+      plugins: plugins6,
       postProcessors,
       schemaParser = new SchemaParser(),
       projectPreProcessors = [],
@@ -1225,7 +1225,7 @@ var ProjectBuilder = class {
       extraContextData = {}
     } = customBuilderOptions;
     this.template = template;
-    this.plugins = plugins5;
+    this.plugins = plugins6;
     this.postProcessors = postProcessors;
     this.schemaParser = schemaParser;
     this.projectPreProcessors = projectPreProcessors;
@@ -11195,6 +11195,142 @@ var plugins4 = {
   commonDeps: reactCommonDeps_default
 };
 
+// src/plugins/project/framework/nextjs-page/template/static-files.ts
+function generateStaticFiles5(root = createResultDir(".")) {
+  return root;
+}
+
+// src/plugins/project/framework/nextjs-page/template/index.ts
+var nextjsTemplate2 = {
+  slots: {
+    components: {
+      path: []
+    },
+    pages: {
+      path: [],
+      fileName: "page"
+    },
+    router: {
+      path: ["src", "lib"],
+      fileName: "routes"
+    },
+    entry: {
+      path: ["src"],
+      fileName: "app"
+    },
+    constants: {
+      path: ["src"],
+      fileName: "constants"
+    },
+    utils: {
+      path: ["src"],
+      fileName: "utils"
+    },
+    i18n: {
+      path: ["src"],
+      fileName: "i18n"
+    },
+    globalStyle: {
+      path: ["src"],
+      fileName: "global"
+    },
+    htmlEntry: {
+      path: ["public"],
+      fileName: "index"
+    },
+    packageJSON: {
+      path: [],
+      fileName: "package"
+    }
+  },
+  generateTemplate() {
+    return generateStaticFiles5();
+  }
+};
+var template_default5 = nextjsTemplate2;
+
+// src/plugins/project/framework/nextjs-page/index.ts
+var nextjs_page_default = {
+  template: template_default5,
+  plugins: {}
+};
+
+// src/solutions/nextjs-page.ts
+function createNextJsPageProjectBuilder(options) {
+  return createProjectBuilder({
+    inStrictMode: options == null ? void 0 : options.inStrictMode,
+    extraContextData: { ...options },
+    template: nextjs_page_default.template,
+    plugins: {
+      components: [
+        reactCommonDeps_default(),
+        esmodule_default({
+          fileType: "tsx"
+        }),
+        styleImport_default(),
+        containerClass_default(),
+        containerInjectContext_default(),
+        containerInjectUtils_default(),
+        containerInjectDataSourceEngine_default(),
+        containerInjectI18n_default(),
+        containerInjectConstants_default(),
+        containerInitState_default(),
+        containerLifeCycle_default(),
+        containerMethod_default(),
+        jsx_default({
+          nodeTypeMapping: {
+            Div: "div",
+            Component: "div",
+            Page: "div",
+            Block: "div"
+          }
+        }),
+        css_default()
+      ],
+      pages: [
+        reactCommonDeps_default(),
+        esmodule_default({
+          fileType: "tsx"
+        }),
+        styleImport_default(),
+        containerClass_default(),
+        containerInjectContext_default(),
+        containerInjectUtils_default(),
+        containerInjectDataSourceEngine_default(),
+        containerInjectI18n_default(),
+        containerInjectConstants_default(),
+        containerInitState_default(),
+        containerLifeCycle_default(),
+        containerMethod_default(),
+        jsx_default({
+          nodeTypeMapping: {
+            Div: "div",
+            Component: "div",
+            Page: "div",
+            Block: "div",
+            Box: "div"
+          }
+        }),
+        css_default()
+      ]
+    },
+    postProcessors: [prettier_default()],
+    customizeBuilderOptions: options == null ? void 0 : options.customizeBuilderOptions
+  });
+}
+var plugins5 = {
+  containerClass: containerClass_default,
+  containerInitState: containerInitState_default,
+  containerInjectContext: containerInjectContext_default,
+  containerInjectUtils: containerInjectUtils_default,
+  containerInjectI18n: containerInjectI18n_default,
+  containerInjectDataSourceEngine: containerInjectDataSourceEngine_default,
+  containerLifeCycle: containerLifeCycle_default,
+  containerMethod: containerMethod_default,
+  jsx: jsx_default,
+  commonDeps: reactCommonDeps_default
+};
+
 // src/plugins/common/requireUtils.ts
 var pluginFactory44 = () => {
   const plugin = async (pre) => {
@@ -11241,13 +11377,15 @@ var src_default = {
     icejs: createIceJsProjectBuilder,
     icejs3: createIceJsProjectBuilder2,
     rax: createRaxProjectBuilder,
-    nextjs: createNextJsProjectBuilder
+    nextjs: createNextJsProjectBuilder,
+    nextjsPage: createNextJsPageProjectBuilder
   },
   solutionParts: {
     icejs: icejs_default,
     icejs3: icejs3_default,
     rax: rax_default,
-    nextjs: nextjs_default
+    nextjs: nextjs_default,
+    nextjsPage: nextjs_page_default
   },
   publishers: {
     disk: createDiskPublisher,
@@ -11279,6 +11417,9 @@ var src_default = {
     },
     nextjs: {
       ...plugins4
+    },
+    nextjsPage: {
+      ...plugins5
     },
     react: {
       ...plugins

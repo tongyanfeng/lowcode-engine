@@ -25,7 +25,7 @@ export async function init({
 export type Result = ResultDir | FlattenFile[];
 
 export async function generateCode(options: {
-  solution: 'icejs' | 'rax' | 'nextjs';
+  solution: 'icejs' | 'rax' | 'nextjs' | 'nextjsPage';
   schema: IPublicTypeProjectSchema;
   flattenResult?: boolean;
   workerJsUrl?: string;
